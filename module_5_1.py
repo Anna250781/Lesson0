@@ -7,11 +7,11 @@ class House:
     def go_to(self, new_floor):
         floor = int(new_floor)
         f = 0
+        if floor > self.number_of_floors or  floor < 1:
+            print("Такого этажа не существует")
+            return
         for i in range(1, floor + 1):
-            if floor > self.number_of_floors or  floor < 1:
-                print("Такого этажа не существует")
-                return
-            else:
+            if i >= 1:
                 f = f + 1
                 print(f)
         return f
