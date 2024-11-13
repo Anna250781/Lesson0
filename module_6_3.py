@@ -8,11 +8,14 @@ class Animal:
         self._cords = _cords
 
     def move(self, dx, dy, dz):
-        self._cords = [dx * self.speed, dy * self.speed, dz * self.speed]
+        self._cords[0] = self._cords[0] + dx * self.speed
+        self._cords[1] = self._cords[1] + dy * self.speed
+        self._cords[2] = self._cords[2] + dz * self.speed
         if self._cords[2] < 0:
             self._cords[2] = 0
             print("It's too deep, i can't dive :(")
         return
+
 
     def get_cords(self):
         print(f"X: {self._cords[0]}, Y: {self._cords[1]}, Z: {self._cords[2]}")
@@ -37,8 +40,11 @@ class Bird(Animal):
 class AquaticAnimal(Animal):
     _DEGREE_OF_DANGER = 3
     def dive_in(self, dz):
-        #abs_dz = abs(dz)
-        self._cords[2] = abs(dz) * self.speed / 2
+        depth_chang = abs(dz) * self.speed / 2
+        new_z = self._cords[2] - depth_chang
+        if new_z < 0:
+            new_z = self._cords[2]
+        return new_z
 
 #- где dz изменение координаты z в _cords.Должен
     # изменять в отрицательную сторону координату z уменьшенную в 2 раза с учётом скорости.
@@ -48,18 +54,21 @@ class AquaticAnimal(Animal):
 class PoisonousAnimal(Animal):
     _DEGREE_OF_DANGER = 8
 
-class Duckbill(Bird, PoisonousAnimal, AquaticAnimal):#Порядок наследования определите сами
+
+class Duckbill(PoisonousAnimal, AquaticAnimal, Bird):#Порядок наследования определите сами
     def __init__(self, speed, _cords = [0, 0, 0], sound = "Click-click-click"):
         super().__init__(speed, _cords)
         self.sound = sound
 
+    def speak(self):
+        print(self.sound)
 
 db = Duckbill(10)
 
 print(db.live)
 print(db.beak)
 
-#db.speak()
+db.speak()
 db.attack()
 
 db.move(1, 2, 3)
