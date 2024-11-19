@@ -13,23 +13,19 @@ class Shop:
     def __init__(self, __file_name = "products.txt"):
         self.__file_name = __file_name
 
-    def get_products(self):
-        file = open(self.__file_name, "r")
-        file.read()
-        file.close()
-        return f"{self.__file_name}"
-
     def add(self, *products:Product):
         for i in products:
-            if i not in  self.__file_name:
+            if str(i) not in  self.get_products():
                 file = open(self.__file_name, "a")
                 file.write(f"{i}\n")
                 file.close()
             else:
                 print(f'Продукт {i} уже есть в магазине')
-                return i
+        return i
 
-
+    def get_products(self):
+        file = open(self.__file_name, "r")
+        return file.read()
 
 
 s1 = Shop()
