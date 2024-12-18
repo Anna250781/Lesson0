@@ -14,17 +14,13 @@ def personal_sum(numbers):
 def calculate_average(numbers):
     try:
         result2 = personal_sum(numbers)
-        if isinstance(numbers,list) or isinstance(numbers,tuple):
-            for i in range(len(numbers)):
-                if isinstance(numbers[i], int):
-                    numbers[i] += 1
-            return result2[0] / numbers[i]
+        result3 = len(numbers) - result2[1]
+        return result2[0] / result3
     except ZeroDivisionError:
-        print(0)
+        return 0
     except TypeError:
         print("В numbers записан некорректный тип данных")
-    finally:
-        return
+
 
 
 print(f'Результат 1: {calculate_average("1, 2, 3")}') # Строка перебирается, но каждый символ - строковый тип
