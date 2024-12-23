@@ -1,12 +1,24 @@
 class IncorrectVinNumber(Exception):
-    pass
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+
 class IncorrectCarNumbers(Exception):
-    pass
-class Car:
-    def __init__(self, model:str, vin:int, numbers:str):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(self.message)
+
+
+class Car(IncorrectVinNumber, IncorrectCarNumbers):
+    def __init__(self, model:str, vin, numbers:str):
         self.model = model
-        self.__vin = vin
-        self.__numbers = numbers
+        if self.__is_valid_vin(vin) == True:
+            self.__vin = vin
+        if self.__is_valid_numbers(numbers) == True:
+            self.__numbers = numbers
+
+
 
 
     def __is_valid_vin(self, vin_number):
